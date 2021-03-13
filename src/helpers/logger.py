@@ -1,7 +1,9 @@
 import logging
+import coloredlogs
 from helpers.config import config
 
 class Logger:
+    """Provides access to file and stream logging"""
     def __init__(self):
         level = "INFO"
         if config.get("CB_LOGLEVEL"):
@@ -10,11 +12,14 @@ class Logger:
         logging.basicConfig(
             handlers=[
                 logging.FileHandler("combahton.log"),
-                logging.StreamHandler(),
+                logging.StreamHandler()
             ],
             level=level,
             format="%(asctime)s [%(levelname)s] %(message)s"
         )
+        coloredlogs.install(level=level)
 
-    def getLogger(self):
+    def get_logger(self):
+        """Returns the created logger"""
         return logging
+        
