@@ -9,15 +9,16 @@ from commands.misc.__main__ import misc
 
 from helpers.config import config
 from helpers.logger import Logger
+from helpers.version import check_version, __version__
 
 if not config.get("CB_DEBUG"):
     sys.tracebacklimit = 0
 
 log = Logger().get_logger()
 
-@click.group()
+@click.group(help = "combahton-cli Version: {version:s} ({check:s}) \n\nSimple CLI Interface to interact with combahton Services".format(version = __version__, check = "Up to date" if check_version(True) else "Update required"))
 def cli():
-    """Simple CLI Interface to interact with combahton Services"""
+    pass
 
 cli.add_command(misc)
 
@@ -35,6 +36,13 @@ if config.get("CB_API_VERSION") == "v3":
     log.error("Access to APIv3 is not yet implemented.")
 else:
     populate_commands_v2()
+
+
+@click.command(name="version", help="Checks the local version against the latest remote at GitHub")
+def version():
+    check_version()
+
+cli.add_command(version)
 
 if __name__ == "__main__":
     cli()
