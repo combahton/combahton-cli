@@ -2,7 +2,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![Build Status][build-shield]][build-url]
 [![Twitter][twitter-shield]][twitter-url]
 
 <br />
@@ -173,7 +173,7 @@ Project Link: [https://github.com/combahton/combahton-cli](https://github.com/co
 [stars-url]: https://github.com/combahton/combahton-cli/stargazers
 [issues-shield]: https://img.shields.io/github/issues/combahton/combahton-cli.svg?style=for-the-badge
 [issues-url]: https://github.com/combahton/combahton-cli/issues
-[license-shield]: https://img.shields.io/github/license/combahton/combahton-cli.svg?style=for-the-badge
-[license-url]: https://github.com/combahton/repo/blob/master/LICENSE.txt
+[build-shield]: https://img.shields.io/github/workflow/status/combahton/combahton-cli/PyInstaller%20Build?style=for-the-badge
+[build-url]: https://github.com/combahton/combahton-cli/actions/workflows/build.yml
 [twitter-shield]: https://img.shields.io/badge/-Twitter-black.svg?style=for-the-badge&logo=twitter&colorB=555
 [twitter-url]: https://twitter.com/combahton
