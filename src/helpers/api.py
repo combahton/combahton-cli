@@ -1,9 +1,12 @@
+import re
 import json
 import requests
 from helpers.config import config
 from helpers.logger import Logger
 
 logger = Logger().get_logger()
+
+r_l7_cookie = re.compile(r"layer7-validate=(\w*)")
 
 class APIv2:
     """
@@ -27,13 +30,14 @@ class APIv2:
           \\                                   | |
           /\\                               ((/   \\))
         Houston, We Have A Problem. API responds with Layer7 challenge.
-        This should never happen. Please contact our customer support."""},
+        This should never happen. Please retry your request. A cookie was stored."""},
         # AntiDDoS Module
         "ssl_chain_invalid": { "level": logger.ERROR, "message": "The specified SSL chain was invalid. Please check your input." },
         "exists": { "level": logger.ERROR, "message": "The specified domain already exists on the Layer 7 filters." },
         "added": { "level": logger.INFO, "message": "The domain/certificate was successfully added to the Layer 7 filters." },
         "deleted": { "level": logger.INFO, "message": "The domain/certificate was successfully removed from the layer 7 filters." },
         "routing_changed": { "level": logger.INFO, "message": "The routing was successfully changed." },
+        "blank": { "level": logger.INFO, "message": "There are no incidents logged (yet)." },
         # Cloud Module
         "id_reinstalling": { "level": logger.ERROR, "message": "The specified cloud server is currently being reinstalled." },
         "OK": { "level": logger.INFO, "message": "The task has been executed successfully." },
@@ -67,9 +71,14 @@ class APIv2:
         for key, value in kwargs.items():
             post_data[key] = value
 
-        logger.debug("Sending request to {scope:s} with params: {param:s}".format(scope = self.scope, param = json.dumps(post_data)))
-        response = requests.post(self.scope, json=post_data, headers=self.headers, cookies={ 'layer7-validate': '83a4bb9f6e41b49cb63645bca5600b10'})
+        l7_cookie = config.get("LAYER7_VALIDATE") if config.get("LAYER7_VALIDATE") else ""
+
+        logger.debug("Sending request to {scope:s} (cookie: {cookie:s}) with params: {param:s}".format(scope = self.scope, cookie = l7_cookie, param = json.dumps(post_data)))
+        response = requests.post(self.scope, json=post_data, headers=self.headers, cookies={ 'layer7-validate': l7_cookie })
         if "Authentication required" in response.text:
+            cookie = r_l7_cookie.search(response.text)
+            with open(".env", "a+") as file:
+                file.write("\nLAYER7_VALIDATE={cookie:s}".format(cookie=cookie[1]))
             return { "status": "layer7_challenge" }
 
         if response.headers["Content-Type"] == "application/pdf":
