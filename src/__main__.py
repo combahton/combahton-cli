@@ -16,7 +16,7 @@ if not config.get("CB_DEBUG"):
 
 log = Logger().get_logger()
 
-@click.group(help = "combahton-cli Version: {version:s} ({check:s}) \n\nSimple CLI Interface to interact with combahton Services".format(version = __version__, check = "Up to date" if check_version(True) else "Update required"))
+@click.group(help = "combahton-cli Version: {version:s} \n\nSimple CLI Interface to interact with combahton Services".format(version = __version__))
 def cli():
     pass
 
