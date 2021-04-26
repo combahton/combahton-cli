@@ -4,7 +4,7 @@ from helpers.logger import Logger
 
 log = Logger().get_logger()
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 def check_version(mute = False):
     local_version = __version__
