@@ -1,5 +1,5 @@
 import click
-from tabulate import tabulate
+from tabulate import tabulate # pylint: disable=import-error
 
 from commands.v2.cloud.reinstall import reinstall # pylint: disable=import-error,no-name-in-module
 
@@ -52,7 +52,7 @@ def cloud_stop(contract):
                 if response["success"]:
                     log.info("The specified cloud instance is being stopped.")
                 else:
-                    log.warn("The specified cloud instance could not be stopped.")
+                    log.warning("The specified cloud instance could not be stopped.")
             else:
                 log.fatal("An unknown error occured.")
     except (ValueError) as error:
@@ -74,7 +74,7 @@ def cloud_start(contract):
                 if response["success"]:
                     log.info("The specified cloud instance is being started.")
                 else:
-                    log.warn("The specified cloud instance could not be started.")
+                    log.warning("The specified cloud instance could not be started.")
             else:
                 log.fatal("An unknown error occured.")
     except (ValueError) as error:
@@ -96,7 +96,7 @@ def cloud_reset(contract):
                 if response["success"]:
                     log.info("The specified cloud instance is being resetted.")
                 else:
-                    log.warn("The specified cloud instance could not be resetted.")
+                    log.warning("The specified cloud instance could not be resetted.")
             else:
                 log.fatal("An unknown error occured.")
     except (ValueError) as error:

@@ -1,5 +1,5 @@
 import click
-from tabulate import tabulate
+from tabulate import tabulate # pylint: disable=import-error
 
 from commands.v2.customer.invoice import invoice # pylint: disable=import-error,no-name-in-module
 from commands.v2.customer.contract import contract # pylint: disable=import-error,no-name-in-module

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import click
-from tabulate import tabulate
+from tabulate import tabulate # pylint: disable=import-error
 
 from helpers.api import APIv2 # pylint: disable=import-error,no-name-in-module
 from helpers.logger import Logger # pylint: disable=import-error,no-name-in-module

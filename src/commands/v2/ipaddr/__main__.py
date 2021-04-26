@@ -1,7 +1,7 @@
 import ipaddress
 
 import click
-from tabulate import tabulate
+from tabulate import tabulate # pylint: disable=import-error
 
 from helpers.config import config # pylint: disable=import-error,no-name-in-module
 from helpers.api import APIv2 # pylint: disable=import-error,no-name-in-module
