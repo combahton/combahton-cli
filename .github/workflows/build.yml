@@ -49,6 +49,5 @@ jobs:
           draft: true
           # Should this release be marked as a pre-release?
           prerelease: false
-          automatic_release_tag: latest
           # Assets to upload to the release
           files: ${{ github.workspace }}/dist/
